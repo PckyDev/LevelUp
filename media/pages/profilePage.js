@@ -1,6 +1,7 @@
 import { getLevelBadgeClass } from '../modules/levelBadge.js';
 import { getAchievementBadgeIcon } from '../modules/icons.js';
 import {
+  renderMeter,
   renderTrait,
 } from '../modules/renderers.js';
 import { clamp, escapeHtml } from '../modules/utils.js';
@@ -54,9 +55,7 @@ function renderHeroPanel(hero) {
           </div>
           <div class="progress-value">${escapeHtml(hero.xpText)}</div>
         </div>
-        <div class="meter">
-          <div class="meter-fill progress-fill" style="width: ${clamp(hero.xpPercent)}%"></div>
-        </div>
+        ${renderMeter(hero.xpPercent, 'progress-fill', 'Level progress')}
         <p class="progress-caption">Keep coding to push this run to the next level.</p>
       </section>
     </header>

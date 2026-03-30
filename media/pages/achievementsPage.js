@@ -1,5 +1,6 @@
 import { getAchievementBadgeIcon } from '../modules/icons.js';
-import { clamp, escapeHtml } from '../modules/utils.js';
+import { renderMeter } from '../modules/renderers.js';
+import { escapeHtml } from '../modules/utils.js';
 
 export function renderAchievementsPage({ model, isActive }) {
   const groups = Array.isArray(model?.achievements?.groups) ? model.achievements.groups : [];
@@ -76,9 +77,7 @@ export function renderAchievementDetail({ achievement, group }) {
               <div class="progress-title">${escapeHtml(achievement.progressText)}</div>
             </div>
           </div>
-          <div class="meter">
-            <div class="meter-fill achievement-fill" style="width: ${clamp(achievement.progressPercent)}%"></div>
-          </div>
+          ${renderMeter(achievement.progressPercent, 'achievement-fill', `${achievement.title} progress`)}
           <p class="progress-caption">${escapeHtml(
             achievement.unlocked
               ? 'This achievement has been unlocked.'

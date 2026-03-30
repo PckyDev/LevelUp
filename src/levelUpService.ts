@@ -402,7 +402,7 @@ function evaluateAllOfTracking(
 
   return {
     unlocked: completedConditions === totalConditions,
-    progressPercent: Math.round(averageProgress),
+    progressPercent: roundPercent(averageProgress),
     progressText: `${completedConditions}/${totalConditions} ${tracking.label ?? 'goals'} met`,
   };
 }
@@ -434,7 +434,7 @@ function createValueEvaluation(
     unlocked,
     progressPercent: unlocked
       ? 100
-      : Math.min(100, Math.round((normalizedCurrent / normalizedTarget) * 100)),
+      : roundPercent((normalizedCurrent / normalizedTarget) * 100),
     progressText: `${formatTrackedValue(displayCurrent, precision)}/${formatTrackedValue(target, precision)} ${unit}`,
   };
 }
@@ -509,4 +509,8 @@ export function calculateLevelProgress(totalXp: number): LevelProgress {
 
 function getXpRequiredForLevel(level: number): number {
   return 120 + (level - 1) * 60;
+}
+
+function roundPercent(value: number): number {
+  return Math.max(0, Math.min(100, Math.round(value * 10) / 10));
 }

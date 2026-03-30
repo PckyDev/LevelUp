@@ -411,19 +411,33 @@ function getVisibleAchievementCard(cards: DashboardAchievementCard[]): Dashboard
 }
 
 function calculateDiscipline(state: LevelUpState): number {
-  return clamp(Math.round(state.totalSaves * 4 + state.currentStreak * 10), 0, 100);
+  const saveRatio = divide(state.totalSaves, state.totalEdits);
+
+  return averagePercent(
+    getProgressPercent(state.totalSaves, 40),
+    getProgressPercent(state.currentStreak, 10),
+    getProgressPercent(saveRatio, 0.35),
+  );
 }
 
 function calculateCraft(state: LevelUpState): number {
-  return clamp(Math.round(state.totalEdits * 2 + state.totalTypedCharacters / 45), 0, 100);
+  return averagePercent(
+    getProgressPercent(state.totalEdits, 120),
+    getProgressPercent(state.totalTypedCharacters, 5000),
+    getProgressPercent(state.totalXp, 1200),
+  );
 }
 
 function calculateVersatility(state: LevelUpState): number {
-  return clamp(state.languagesUsed.length * 28, 0, 100);
+  return roundPercent((1 - Math.exp(-state.languagesUsed.length / 2.2)) * 100);
 }
 
 function calculateEndurance(state: LevelUpState): number {
-  return clamp(Math.round(state.activeDays * 10 + state.longestStreak * 8), 0, 100);
+  return averagePercent(
+    getProgressPercent(state.activeDays, 20),
+    getProgressPercent(state.longestStreak, 10),
+    getProgressPercent(state.currentStreak, 7),
+  );
 }
 
 function getTraitTier(value: number): string {
@@ -555,7 +569,20 @@ function getProgressPercent(current: number, total: number): number {
     return 0;
   }
 
-  return clamp(Math.round((current / total) * 100), 0, 100);
+  return roundPercent((current / total) * 100);
+}
+
+function averagePercent(...values: number[]): number {
+  if (values.length === 0) {
+    return 0;
+  }
+
+  const sum = values.reduce((total, value) => total + value, 0);
+  return roundPercent(sum / values.length);
+}
+
+function roundPercent(value: number): number {
+  return clamp(Math.round(value * 10) / 10, 0, 100);
 }
 
 function formatNumber(value: number): string {

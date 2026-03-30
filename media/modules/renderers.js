@@ -17,10 +17,18 @@ export function renderTrait(trait) {
         <span class="row-title">${escapeHtml(trait.name)}</span>
         <span class="tier-badge">${escapeHtml(trait.tier)}</span>
       </div>
-      <div class="meter">
-        <div class="meter-fill trait-fill" style="width: ${clamp(trait.value)}%"></div>
-      </div>
+      ${renderMeter(trait.value, 'trait-fill', `${trait.name} progress`)}
     </article>
+  `;
+}
+
+export function renderMeter(value, className, label = 'Progress') {
+  const safeValue = clamp(value);
+
+  return `
+    <progress class="meter meter-progress ${escapeHtml(className)}" max="100" value="${safeValue}" aria-label="${escapeHtml(label)}">
+      ${safeValue}%
+    </progress>
   `;
 }
 
