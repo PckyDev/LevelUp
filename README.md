@@ -68,14 +68,21 @@ Your extension is a Node.js process that VS Code loads when one of its activatio
 
 Once activated, the extension can subscribe to editor events like file changes and saves. Level Up listens to those events, updates the player state in memory, persists it with VS Code storage, and refreshes the UI.
 
-## Packaging Later
+## Packaging
 
-If you want to turn this into an installable `.vsix` later, first change the `publisher` field in `package.json` to your own publisher name. Then package it with a tool like `vsce`.
-
-Example:
+The repository is set up to package directly with the included release scripts.
 
 ```bash
-npx @vscode/vsce package
+npm run package
+```
+
+That generates a `.vsix` file you can test locally or publish with `vsce`.
+
+For Marketplace publishing, log in once with your publisher and then use one of the release scripts:
+
+```bash
+npx @vscode/vsce login Pocky
+npm run publish:patch
 ```
 
 ## Next Good Improvements

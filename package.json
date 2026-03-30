@@ -4,7 +4,7 @@
   "description": "Earn XP, unlock achievements, and level up as you code in VS Code.",
   "version": "0.0.1",
   "publisher": "Pocky",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.90.0"
   },
@@ -24,6 +24,14 @@
   ],
   "main": "./dist/extension.js",
   "icon": "media/level-up.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PckyDev/LevelUp.git"
+  },
+  "homepage": "https://github.com/PckyDev/LevelUp#readme",
+  "bugs": {
+    "url": "https://github.com/PckyDev/LevelUp/issues"
+  },
   "contributes": {
     "commands": [
       {
@@ -44,7 +52,7 @@
         {
           "id": "levelUp",
           "title": "Level Up",
-          "icon": "media/level-up.svg"
+          "icon": "media/level-up-activity.svg"
         }
       ]
     },
@@ -54,7 +62,7 @@
           "id": "levelUp.dashboard",
           "name": "Dashboard",
           "type": "webview",
-          "icon": "media/level-up.svg"
+          "icon": "media/level-up-activity.svg"
         }
       ]
     },
@@ -77,10 +85,10 @@
   "scripts": {
     "compile": "tsc -p .",
     "watch": "tsc -watch -p .",
-    "package": "vsce package --allow-missing-repository --skip-license",
-    "publish:patch": "vsce publish patch --allow-missing-repository --skip-license",
-    "publish:minor": "vsce publish minor --allow-missing-repository --skip-license",
-    "publish:major": "vsce publish major --allow-missing-repository --skip-license",
+    "package": "vsce package",
+    "publish:patch": "vsce publish patch",
+    "publish:minor": "vsce publish minor",
+    "publish:major": "vsce publish major",
     "vscode:prepublish": "npm run compile"
   },
   "devDependencies": {
