@@ -1,0 +1,220 @@
+:root {
+  --bg: var(--vscode-sideBar-background, #1e1e1e);
+  --panel: var(--vscode-editorWidget-background, #252526);
+  --surface: var(--vscode-sideBarSectionHeader-background, #2a2d2e);
+  --surface-2: var(--vscode-input-background, #313131);
+  --foreground: var(--vscode-foreground, #cccccc);
+  --muted: var(--vscode-descriptionForeground, #9d9d9d);
+  --border: var(--vscode-sideBar-border, var(--vscode-panel-border, rgba(255, 255, 255, 0.08)));
+  --divider: rgba(127, 127, 127, 0.18);
+  --accent: var(--vscode-focusBorder, #007fd4);
+  --accent-strong: var(--vscode-button-background, #0e639c);
+  --accent-soft: var(--vscode-list-activeSelectionBackground, rgba(14, 99, 156, 0.2));
+  --accent-soft-foreground: var(--vscode-list-activeSelectionForeground, var(--foreground));
+  --hover: var(--vscode-list-hoverBackground, rgba(255, 255, 255, 0.04));
+  --secondary-button-bg: var(--vscode-button-secondaryBackground, var(--surface));
+  --secondary-button-fg: var(--vscode-button-secondaryForeground, var(--foreground));
+  --danger: var(--vscode-inputValidation-errorBorder, #f48771);
+  --radius: 8px;
+  --font-family: var(--vscode-font-family, 'Segoe UI', sans-serif);
+  --editor-font-family: var(--vscode-editor-font-family, 'Cascadia Code', monospace);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--foreground);
+  font-family: var(--font-family);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+body,
+#app,
+.shell {
+  min-height: 100vh;
+}
+
+.shell {
+  padding: 0 0 1rem;
+}
+
+.dashboard {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.panel {
+  position: relative;
+  overflow: hidden;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.pages {
+  display: grid;
+}
+
+.page {
+  display: none;
+  gap: 12px;
+}
+
+.page.is-active {
+  display: grid;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.section-label {
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hero-title,
+.panel-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.hero-title {
+  font-size: 19px;
+}
+
+.panel-copy,
+.card-hint,
+.achievement-copy,
+.progress-caption,
+.row-value,
+.progress-title {
+  overflow-wrap: anywhere;
+}
+
+.panel-copy,
+.card-hint,
+.achievement-copy {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.progress-header {
+  display: grid;
+  gap: 8px;
+}
+
+.progress-title {
+  color: var(--foreground);
+  font-weight: 500;
+}
+
+.progress-caption {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.meter {
+  overflow: hidden;
+  width: 100%;
+  height: 8px;
+  margin-top: 10px;
+  border-radius: 999px;
+  background: var(--surface-2);
+}
+
+.meter-fill {
+  height: 100%;
+  border-radius: inherit;
+}
+
+.progress-fill,
+.trait-fill,
+.achievement-fill {
+  background: linear-gradient(90deg, var(--accent-strong), var(--accent));
+}
+
+.summary-card,
+.metric-card {
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+}
+
+.card-label,
+.achievement-status {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.card-label {
+  display: block;
+  margin-bottom: 4px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.card-value {
+  display: block;
+  color: var(--foreground);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.row-title {
+  color: var(--foreground);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.row-value {
+  text-align: right;
+}
+
+.chip,
+.empty-state {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 12px;
+}
+
+.empty-state {
+  color: var(--muted);
+}
+
+@media (min-width: 420px) {
+  .progress-header {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+  }
+}

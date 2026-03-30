@@ -1,0 +1,64 @@
+.summary-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
+.metric-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
+.metric-card .card-value {
+  font-size: 18px;
+}
+
+.ledger-list {
+  display: grid;
+}
+
+.ledger-row {
+  padding: 10px 0;
+  border-top: 1px solid var(--divider);
+}
+
+.ledger-row:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.ledger-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.info-list {
+  display: grid;
+}
+
+.info-row {
+  padding: 10px 0;
+  border-top: 1px solid var(--divider);
+}
+
+.info-row:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}

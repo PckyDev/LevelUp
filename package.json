@@ -1,0 +1,92 @@
+{
+  "name": "level-up",
+  "displayName": "Level Up",
+  "description": "Earn XP, unlock achievements, and level up as you code in VS Code.",
+  "version": "0.0.1",
+  "publisher": "Pocky",
+  "license": "UNLICENSED",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "xp",
+    "levels",
+    "achievements",
+    "gamification",
+    "productivity"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "icon": "media/level-up.png",
+  "contributes": {
+    "commands": [
+      {
+        "command": "levelUp.openDashboard",
+        "title": "Level Up: Open Dashboard"
+      },
+      {
+        "command": "levelUp.showSummary",
+        "title": "Level Up: Show Summary"
+      },
+      {
+        "command": "levelUp.resetProgress",
+        "title": "Level Up: Reset Progress"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "levelUp",
+          "title": "Level Up",
+          "icon": "media/level-up.svg"
+        }
+      ]
+    },
+    "views": {
+      "levelUp": [
+        {
+          "id": "levelUp.dashboard",
+          "name": "Dashboard",
+          "type": "webview",
+          "icon": "media/level-up.svg"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Level Up",
+      "properties": {
+        "levelUp.effects.editorCelebrations": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show editor confetti bursts when you level up or unlock achievements."
+        },
+        "levelUp.effects.reducedMotion": {
+          "type": "boolean",
+          "default": false,
+          "description": "Use lighter, shorter editor celebration effects with less motion."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p .",
+    "watch": "tsc -watch -p .",
+    "package": "vsce package --allow-missing-repository --skip-license",
+    "publish:patch": "vsce publish patch --allow-missing-repository --skip-license",
+    "publish:minor": "vsce publish minor --allow-missing-repository --skip-license",
+    "publish:major": "vsce publish major --allow-missing-repository --skip-license",
+    "vscode:prepublish": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "@types/vscode": "^1.90.0",
+    "@vscode/vsce": "^3.7.1",
+    "typescript": "^5.6.3"
+  }
+}

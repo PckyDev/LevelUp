@@ -1,0 +1,86 @@
+.tabbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: grid;
+  gap: 4px;
+  grid-template-columns: repeat(var(--tab-count, 4), minmax(0, 1fr));
+  padding: 4px;
+  background: var(--bg);
+}
+
+.tab-button {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  text-align: center;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease;
+}
+
+.tab-button:hover {
+  background: var(--hover);
+}
+
+.tab-button-inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.tab-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.tab-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+}
+
+.tab-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tabbar.is-icon-only .tab-button {
+  padding-inline: 8px;
+}
+
+.tabbar.is-icon-only .tab-button-inner {
+  gap: 0;
+}
+
+.tabbar.is-icon-only .tab-label {
+  display: none;
+}
+
+.tab-button.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-soft-foreground);
+}
