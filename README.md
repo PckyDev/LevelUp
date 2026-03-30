@@ -1,45 +1,67 @@
 # Level Up
 
-Level Up is a VS Code extension that turns day to day coding into a lightweight progression system. As you edit and save files, you earn XP, unlock achievements, build streaks, and level up over time.
+Level Up is a VS Code extension that turns everyday coding into a lightweight progression system. As you work, you earn XP for meaningful edits, get bonus XP on saves, unlock achievements, build streaks, and level up over time.
 
-## What This MVP Does
+It is designed to make normal coding feel a little more rewarding without getting in the way of the editor.
 
-- Awards XP for meaningful text edits.
-- Awards bonus XP when files are saved.
-- Tracks a daily streak and active days.
-- Unlocks a large achievement catalog with milestone, ratio, and combo challenges.
-- Shows progress in both the status bar and a dedicated RPG-style Level Up sidebar.
-- Plays a confetti-style editor celebration when you level up or unlock achievements.
-- Splits the dashboard into Profile, Achievements, Stats, and Settings pages.
-- Shows achievements as badge-style medals with one visible active tier per group and a larger detail view with tier navigation.
-- Persists progress through VS Code global state, so your stats survive restarts.
+## Features
 
-## How The Extension Is Structured
+- Earn XP from real coding activity.
+- Get bonus XP when you save files.
+- Level up as your total progress grows.
+- Track streaks, active days, typed characters, and language usage.
+- Unlock a 100-achievement catalog with milestone, ratio, and combo challenges.
+- See progress in the status bar and in a dedicated Level Up sidebar.
+- Browse a full dashboard with Profile, Achievements, Stats, and Settings pages.
+- View achievements as medal-style badges with tier navigation.
+- Trigger editor celebrations for level-ups and achievement unlocks.
+- Keep progress between sessions with persistent local storage.
 
-- `src/extension.ts` wires the VS Code APIs together.
-- `data/achievements.json` contains the achievement catalog, including expandable tier series and one-off combo challenges.
-- `src/achievementCatalog.ts` validates the catalog and expands tier series into concrete achievements.
-- `src/levelUpService.ts` owns XP, levels, achievements, persistence, and activity tracking.
-- `src/levelUpDashboardProvider.ts` renders the RPG dashboard webview in the Activity Bar.
-- `media/dashboard.js` is the webview entrypoint.
-- `media/pages/` contains one file per dashboard page.
-- `media/modules/` contains shared dashboard rendering helpers and UI utilities.
-- `media/styles/` contains the split dashboard stylesheets.
-- `media/level-up.svg` is the custom Activity Bar icon.
+## How It Works
 
-If you want to tweak achievements, the fastest place to start is `data/achievements.json`. The catalog supports threshold, ratio, and all-of combo tracking. If you want to tweak XP balance, start in `src/levelUpService.ts`.
+1. Open a project and start coding.
+2. Meaningful edits award XP in the background.
+3. Saving files adds bonus XP.
+4. As your totals grow, Level Up updates your level, streaks, traits, and achievements.
+5. Open the Level Up icon in the Activity Bar to see your full dashboard.
 
-Editor celebration settings live under `levelUp.effects.*` in VS Code settings and can also be toggled from the Settings page in the dashboard.
+## Dashboard
 
-## How To Run It Locally
+- Profile shows your current level, XP progress, coding archetype, latest achievement, and trait summary.
+- Achievements shows your current visible medal for each achievement line, along with a detail view for inspecting tiers.
+- Stats shows overview cards, activity metrics, XP totals, and language usage.
+- Settings gives you quick actions plus effect toggles for editor celebrations and reduced motion.
 
-1. Install dependencies:
+## Commands
+
+- `Level Up: Open Dashboard`
+- `Level Up: Show Summary`
+- `Level Up: Reset Progress`
+
+## Settings
+
+- `levelUp.effects.editorCelebrations` enables or disables in-editor celebration bursts.
+- `levelUp.effects.reducedMotion` switches celebrations to a shorter, lighter animation style.
+
+These settings are available both in VS Code Settings and inside the Level Up dashboard.
+
+## Progress And Storage
+
+- Level Up stores progress in VS Code global state.
+- Your XP, level, achievements, and streak data persist across restarts.
+- No external account, online service, or backend is required.
+
+## Running From Source
+
+If you are trying the repository directly instead of installing from the Marketplace, use the standard VS Code extension workflow:
+
+1. Install dependencies.
 
 	```bash
 	npm install
 	```
 
-2. Compile the extension:
+2. Compile the extension.
 
 	```bash
 	npm run compile
@@ -47,48 +69,12 @@ Editor celebration settings live under `levelUp.effects.*` in VS Code settings a
 
 3. Press `F5` in VS Code.
 
-VS Code will open a second window called the Extension Development Host. That second window runs your extension in isolation.
-
-## How To Use It
-
-1. Open the Extension Development Host.
-2. Edit code in tracked files to earn XP.
-3. Save files to earn save XP.
-4. Click the Level Up icon in the Activity Bar to view your dashboard.
-5. Swap between Profile, Achievements, Stats, and Settings in the dashboard tabs.
-6. Click an achievement badge to inspect its description, full progress bar, and move left or right through the other tiers in that group.
-7. Use the Command Palette for:
-	- `Level Up: Show Summary`
-	- `Level Up: Open Dashboard`
-	- `Level Up: Reset Progress`
-
-## How VS Code Extensions Work, In Plain English
-
-Your extension is a Node.js process that VS Code loads when one of its activation events happens. In this project, activation happens on startup, when the Level Up view opens, or when one of the Level Up commands is run.
-
-Once activated, the extension can subscribe to editor events like file changes and saves. Level Up listens to those events, updates the player state in memory, persists it with VS Code storage, and refreshes the UI.
+VS Code will open an Extension Development Host window with Level Up loaded.
 
 ## Packaging
 
-The repository is set up to package directly with the included release scripts.
+To build an installable `.vsix` package:
 
 ```bash
 npm run package
 ```
-
-That generates a `.vsix` file you can test locally or publish with `vsce`.
-
-For Marketplace publishing, log in once with your publisher and then use one of the release scripts:
-
-```bash
-npx @vscode/vsce login Pocky
-npm run publish:patch
-```
-
-## Next Good Improvements
-
-- Add settings so users can tune XP rates and notification volume.
-- Add more achievements and a rarity system.
-- Add a webview dashboard with charts, badges, and session summaries.
-- Add workspace specific quests or team leaderboards.
-
