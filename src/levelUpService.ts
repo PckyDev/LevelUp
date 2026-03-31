@@ -43,6 +43,7 @@ const DEFAULT_STATE: LevelUpState = {
 export class LevelUpService {
   private readonly changeEmitter = new vscode.EventEmitter<void>();
   private readonly achievements: readonly AchievementDefinition[];
+  private readonly dirtyDocumentUris = new Set<string>();
   private readonly state: LevelUpState;
   private persistTimer: NodeJS.Timeout | undefined;
 
@@ -78,6 +79,8 @@ export class LevelUpService {
       return undefined;
     }
 
+    this.updateDirtyDocumentState(event.document);
+
     if (
       event.reason === vscode.TextDocumentChangeReason.Undo ||
       event.reason === vscode.TextDocumentChangeReason.Redo
@@ -103,11 +106,20 @@ export class LevelUpService {
       return undefined;
     }
 
+    const documentUri = document.uri.toString();
+    if (!this.dirtyDocumentUris.delete(documentUri)) {
+      return undefined;
+    }
+
     this.markActiveToday();
     this.recordLanguage(document.languageId);
     this.state.totalSaves += 1;
 
     return this.applyXp(SAVE_XP);
+  }
+
+  public handleDocumentClosed(document: vscode.TextDocument): void {
+    this.dirtyDocumentUris.delete(document.uri.toString());
   }
 
   public async resetProgress(): Promise<void> {
@@ -192,6 +204,16 @@ export class LevelUpService {
 
     if (!this.state.languagesUsed.includes(languageId)) {
       this.state.languagesUsed = [...this.state.languagesUsed, languageId].sort();
+    }
+  }
+
+  private updateDirtyDocumentState(document: vscode.TextDocument): void {
+    const documentUri = document.uri.toString();
+
+    if (document.isDirty) {
+      this.dirtyDocumentUris.add(documentUri);
+    } else {
+      this.dirtyDocumentUris.delete(documentUri);
     }
   }
 

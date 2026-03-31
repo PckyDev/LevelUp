@@ -2,7 +2,7 @@
   "name": "level-up",
   "displayName": "Level Up: Gamified Coding",
   "description": "Earn XP, unlock achievements, and level up as you code in VS Code.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "Pocky",
   "license": "MIT",
   "engines": {

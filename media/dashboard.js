@@ -26,6 +26,7 @@ function bootstrap(rootElement) {
   let disposeTabbarObserver = null;
 
   rootElement.addEventListener('click', handleRootClick);
+  rootElement.addEventListener('change', handleRootChange);
   window.addEventListener('message', handleWindowMessage);
   window.addEventListener('keydown', handleWindowKeydown);
 
@@ -60,8 +61,7 @@ function bootstrap(rootElement) {
     if (tabbar instanceof HTMLElement) {
       disposeTabbarObserver = bindResponsiveTabbar(tabbar);
     }
-      rootElement.addEventListener('click', handleRootClick);
-      rootElement.addEventListener('change', handleRootChange);
+
     vscode.setState({ activeTab });
   }
 

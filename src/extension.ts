@@ -75,6 +75,9 @@ export function activate(context: vscode.ExtensionContext): void {
         celebrate(result, celebrationEffects, findEditorForDocument(document));
       }
     }),
+    vscode.workspace.onDidCloseTextDocument((document) => {
+      service?.handleDocumentClosed(document);
+    }),
     vscode.workspace.onDidChangeConfiguration((event) => {
       if (event.affectsConfiguration('levelUp.effects')) {
         dashboardProvider.refresh();

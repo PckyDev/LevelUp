@@ -110,6 +110,12 @@ export class LevelUpDashboardProvider implements vscode.WebviewViewProvider {
           break;
       }
     });
+    webviewView.onDidChangeVisibility(() => {
+      if (webviewView.visible) {
+        this.refresh();
+      }
+    });
+    this.refresh();
   }
 
   public refresh(): void {
